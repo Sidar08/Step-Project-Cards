@@ -4,8 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./dist/css/all.min.css">
 </head>
 <body>
+  <header>
+        <img src="https://med-soyuz.com.ua/wp-content/uploads/2019/08/logo-meds.svg " alt="Логотип" width="100" height="100">
+        <button id="loginButton">Вхід</button>
+    </header>
+    <div class="filters">
+        <input type="text" id="searchInput" placeholder="Пошук за заголовком/вмістом">
+        <select id="statusSelect">
+            <option value="">Статус</option>
+            <option value="Open">Open</option>
+            <option value="Done">Done</option>
+        </select>
+        <select id="prioritySelect">
+            <option value="">Терміновість</option>
+            <option value="High">High</option>
+            <option value="Normal">Normal</option>
+            <option value="Low">Low</option>
+        </select>
+        <button id="filterButton">Фільтрувати</button>
+    </div>
+    
+    <div class="visit-list" id="visitList">
   
+    </div>
 </body>
 </html>
