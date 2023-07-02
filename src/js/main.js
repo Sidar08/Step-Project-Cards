@@ -25,23 +25,16 @@ const formBoxCloseBtn = document.querySelector(`.form-box__close__btn`);
 
 formBoxCloseBtn.addEventListener("click", hideLoginForm);
 
-
-
-// formBoxCloseBtn.addEventListener("click", function () {
-//   const loginInput = document.getElementById("login");
-//   const passwordInput = document.getElementById("password");
-
-//   loginInput.value = ""; // Очистка поля введення для логіна
-//   passwordInput.value = ""; // Очистка поля введення для пароля
-
-//   hideLoginForm();
-// });
-
 function validateForm() {
   const loginInput = document.getElementById("login");
   const passwordInput = document.getElementById("password");
   const loginValue = loginInput.value;
   const passwordValue = passwordInput.value;
+
+  if (loginValue.trim() === "" || passwordValue.trim() === "") {
+    alert("Пожалуйста, заполните все поля формы.");
+    return false;
+  }
 
   let isAuthenticated = false;
   
@@ -63,12 +56,6 @@ function validateForm() {
     errElem.style.position = "fixed";
     
     incorrect.style.display = "block";
-    return false;
-  }
-
-
-  if (loginValue.trim() === "" || passwordValue.trim() === "") {
-    alert("Пожалуйста, заполните все поля формы.");
     return false;
   }
 
