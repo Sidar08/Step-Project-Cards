@@ -1,5 +1,4 @@
-// import {passObj} from "./utils";
-
+import { passObj } from "./utils.js"
 
 const loginButton = document.querySelector('#loginButton');
 
