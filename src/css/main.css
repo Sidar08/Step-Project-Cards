@@ -244,6 +244,11 @@ header {
   box-sizing: border-box;
 }
 
+.form-data__incorrect {
+  height: 15px;
+  background-color: white;
+}
+
 #password {
   margin-bottom: 5rem;
 }
