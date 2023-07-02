@@ -40,14 +40,25 @@ header {
     cursor: pointer;
 }
 
-.modal-content {
+#modal-content {
     margin: 0 auto;
-    align-content: center;
+    box-sizing: border-box;
+}
+
+.modal-dialog {
+    box-sizing: border-box;
 }
 
 .forms-inputs {
     margin: 0 auto;
     width: 80%;
+}
+
+.incorrect {
+    display: none;
+    color: red;
+    margin-left: 55px;
+    font-size: .8125rem;
 }
 
 #submit-button {
@@ -68,6 +79,7 @@ header {
 
 .form-data {
     margin-top: 2.8125rem;
+    box-sizing: border-box;
 }
 
 #password {

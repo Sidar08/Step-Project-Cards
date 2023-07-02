@@ -1,7 +1,28 @@
-import { passObj } from "./utils.js"
+// function fetchVisits() {
+//   return fetch("https://ajax.test-danit.com/api/cards.json")
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (Array.isArray(data)) {
+//         return data.map((card) => card.visit);
+//       } else {
+//         throw new Error("Неправильний формат даних");
+//       }
+//     })
+//     .catch((error) => {
+//       throw new Error("Помилка отримання списку візитів");
+//     });
+// }
+
+// export { fetchVisits };
+
+// import { passObj } from "./utils.js"
+
+// const passObj = [
+//   { login: "admin@gmail.com", password: "qwerty123" },
+//   { login: "admin", password: "qwerty123" },
+// ];
 
 const loginButton = document.querySelector('#loginButton');
-const incorrect = document.querySelector(".incorrect");
 
 function showLoginForm() {
       const formBox = document.querySelector(".form-box");
@@ -13,29 +34,11 @@ loginButton.addEventListener("click", showLoginForm);
 function hideLoginForm() {
   const formBox = document.querySelector(".form-box");
   formBox.style.display = "none";
-  const loginInput = document.getElementById("login");
-  const passwordInput = document.getElementById("password");
-
-  loginInput.value = ""; 
-  passwordInput.value = ""; 
-  incorrect.style.display = "none";
 }
 
 const formBoxCloseBtn = document.querySelector(`.form-box__close__btn`);
 
 formBoxCloseBtn.addEventListener("click", hideLoginForm);
-
-
-
-// formBoxCloseBtn.addEventListener("click", function () {
-//   const loginInput = document.getElementById("login");
-//   const passwordInput = document.getElementById("password");
-
-//   loginInput.value = ""; // Очистка поля введення для логіна
-//   passwordInput.value = ""; // Очистка поля введення для пароля
-
-//   hideLoginForm();
-// });
 
 function validateForm() {
   const loginInput = document.getElementById("login");
@@ -44,7 +47,6 @@ function validateForm() {
   const passwordValue = passwordInput.value;
 
   let isAuthenticated = false;
-  
 
   passObj.forEach(function checkCredentials(e) {
     if (e.login === loginValue && e.password === passwordValue) {
@@ -61,7 +63,7 @@ function validateForm() {
   } else {
     const errElem = document.querySelector(".modal");
     errElem.style.position = "fixed";
-    
+    const incorrect = document.querySelector(".incorrect");
     incorrect.style.display = "block";
     return false;
   }
@@ -88,3 +90,12 @@ submitButton.addEventListener("click", function (event) {
     visitButton.style.display = "block";
   }
 });
+
+
+
+export const passObj = [
+  { login: "admin@gmail.com", password: "qwerty123" },
+  { login: "admin", password: "qwerty123" },
+];
+  
+
