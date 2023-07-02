@@ -1,7 +1,30 @@
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 20px;
-    background-color: #f0f0f0;
+    
+
+}
+
+.hederBtn {
+    padding: 10px 40px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 210px;
+}
+
+.hederBtn:hover {
+    background-color: #45a049;
+}
+
+.Logo {
+    width: 15.625rem;
+}
+
+.visitButton {
+    display: none;
 }

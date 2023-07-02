@@ -84,7 +84,6 @@ const build = () => {
   );
 };
 
-
 function watch() {
   gulp.watch("src/scss/*.scss", style);
   gulp.watch("./src/css/*.css", generateMinCss);
@@ -92,7 +91,5 @@ function watch() {
 }
 
 exports.default = build;
-exports.dev = gulp.series(watch, build)
+exports.dev = gulp.series(watch, build);
 
-
-// проверить код 

@@ -1,34 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./dist/css/all.min.css">
-</head>
-<body>
-  <header>
-        <img src="https://med-soyuz.com.ua/wp-content/uploads/2019/08/logo-meds.svg " alt="Логотип" width="100" height="100">
-        <button id="loginButton">Вхід</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/css/all.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <img
+        class="Logo"
+        src="https://med-soyuz.com.ua/wp-content/uploads/2019/08/logo-meds.svg "
+        alt="Логотип"
+        width="100"
+        height="100"
+      />
+      <button class="loginButton hederBtn" id="loginButton">Вхід</button>
+      <button class="visitButton hederBtn">Створити візит</button>
     </header>
-    <div class="filters">
-        <input type="text" id="searchInput" placeholder="Пошук за заголовком/вмістом">
-        <select id="statusSelect">
-            <option value="">Статус</option>
-            <option value="Open">Open</option>
-            <option value="Done">Done</option>
-        </select>
-        <select id="prioritySelect">
-            <option value="">Терміновість</option>
-            <option value="High">High</option>
-            <option value="Normal">Normal</option>
-            <option value="Low">Low</option>
-        </select>
-        <button id="filterButton">Фільтрувати</button>
+    <section class="section">
+      <div class="section__filters">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Пошук за заголовком/вмістом"
+      />
+      <select id="statusSelect">
+        <option value="" disabled selected>Статус</option>
+        <option value="Open">Open</option>
+        <option value="Done">Done</option>
+      </select>
+      <select id="prioritySelect">
+        <option value="" disabled selected>Терміновість</option>
+        <option value="High">High</option>
+        <option value="Normal">Normal</option>
+        <option value="Low">Low</option>
+      </select>
+      <button id="filterButton">Фільтрувати</button>
     </div>
+
+    <div class="visit-list" id="visitList"></div>
+    </section>
     
-    <div class="visit-list" id="visitList">
-  
+
+  <div class="modal fade show form-box" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content form-box__item">
+      <div class="form-box__close">
+        <button class="form-box__close__btn">X</button>
+      </div>
+      <div class="form-data">
+        <div class="forms-inputs mb-4">
+          <span>Email or username</span>
+          <input autocomplete="off" type="text" id="login" class="form-control" />
+          <div class="invalid-feedback">A valid login is required!</div>
+        </div>
+        
+        <div class="forms-inputs mb-4">
+          <span>Password</span>
+          <input autocomplete="off" type="password" id="password" class="form-control" />
+          <div class="invalid-feedback">Password must be 8 characters!</div>
+        </div>
+        <div class="invalid-data invalid-feedback">Invalid login or password!</div>
+        <button class="form-box__submit btn" id="submit-button">Вход</button>
+      </div>
     </div>
-</body>
+  </div>
+</div>
+    <script type="module" src="./dist/js/all-min.js"></script>
+    <script type="module" src="./src/js/main.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

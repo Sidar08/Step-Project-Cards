@@ -2,9 +2,14 @@
 @import "_mixins.scss";
 @import "_variables.scss";
 @import "_header.scss";
+@import "_modal.scss";
 
+header {
+    background: linear-gradient(#80FFDB, #64DFDF, #48BFE3);
+    background-size: cover;
+}
 
-.filters {
+.section__filters {
     padding: 20px;
     background-color: #f0f0f0;
 }
@@ -34,3 +39,6 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+
+

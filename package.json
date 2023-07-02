@@ -16,9 +16,12 @@
     "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-cssmin": "^0.2.0",
-    "gulp-minify": "^3.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
     "sass": "^1.63.6"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "gulp-minify": "^3.1.0"
   }
 }

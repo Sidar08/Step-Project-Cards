@@ -1,54 +1,85 @@
+// function fetchVisits() {
+//   return fetch("https://ajax.test-danit.com/api/cards.json")
+//     .then((response) => response.json())
+//     .then((data) => {
+//       if (Array.isArray(data)) {
+//         return data.map((card) => card.visit);
+//       } else {
+//         throw new Error("Неправильний формат даних");
+//       }
+//     })
+//     .catch((error) => {
+//       throw new Error("Помилка отримання списку візитів");
+//     });
+// }
+
+// export { fetchVisits };
+
+// import {passObj} from "./utils";
 
 
+const loginButton = document.querySelector('#loginButton');
 
-const navigationIcon = document.querySelector(".navigation__icon");
-const navigationList = document.querySelector(".navigation__list");
-const navigationItem = document.querySelector(".navigation-item");
+function showLoginForm() {
+      const formBox = document.querySelector(".form-box");
+      formBox.style.display = "block";
+    }
 
-if(window.matchMedia("min-width: 481px")== true) {
-  navigationItem.classList.remove("active")
+loginButton.addEventListener("click", showLoginForm);
+
+function hideLoginForm() {
+  const formBox = document.querySelector(".form-box");
+  formBox.style.display = "none";
 }
 
-const handleMenuClick = () => {
-  if (navigationIcon.innerText === "menu") {
-    navigationIcon.innerText = "close";
-    navigationList.classList.remove("invisible");
-  } else {
-    navigationIcon.innerText = "menu";
-    navigationList.classList.add("invisible");
-  }
-};
+const formBoxCloseBtn = document.querySelector(`.form-box__close__btn`);
 
-navigationIcon.addEventListener("click", handleMenuClick);
+formBoxCloseBtn.addEventListener("click", hideLoginForm);
 
-document.addEventListener("click", (event) => {
-  const target = event.target;
+function validateForm() {
+  const loginInput = document.getElementById("login");
+  const passwordInput = document.getElementById("password");
+  const loginValue = loginInput.value;
+  const passwordValue = passwordInput.value;
 
-  const isMenuButtonClicked =
-    target === navigationIcon || navigationIcon.contains(target);
-  const isListItemClicked =
-    target.classList.contains("navigation__link") ||
-    target.parentNode.classList.contains("navigation__link");
+  passObj.forEach((e) => {
+    if (e.login === login.value && e.password === password.value) {
+      localStorage.setItem("login", login.value);
+      localStorage.setItem("password", password.value);
+      localStorage.setItem("autoLogIn", true);
+      this.getFormCloseAction();
+      this.dataValue = true;
 
-  if (!isMenuButtonClicked && !isListItemClicked && !navigationList.contains(target)) {
-    navigationIcon.innerText = "menu";
-    navigationList.classList.add("invisible");
-  }
-});
-
-const navigationItems = document.querySelectorAll(".navigation__item");
-
-navigationItems.forEach((item) => {
-  item.addEventListener("click", (event) => {
-    navigationItems.forEach((item) => {
-      item.classList.remove("active");
+      return this.dataValue;
+    }
     });
 
-    item.classList.add("active");
+  if (loginValue.trim() === "" || passwordValue.trim() === "") {
+    alert("Пожалуйста, заполните все поля формы.");
+    return false;
+  }
 
-    event.stopPropagation();
-  });
+  return true;
+}
+
+const visitButton = document.querySelector(`.visitButton`);
+
+const submitButton = document.getElementById("submit-button");
+submitButton.addEventListener("click", function (event) {
+  event.preventDefault(); 
+
+  if (validateForm()) {
+  
+    hideLoginForm();
+    loginButton.style.display = "none";
+    visitButton.style.display = "block";
+  }
 });
 
 
+
+export let passObj = [
+  { login: "admin@gmail.com", password: "qwerty123" },
+  
+];
 

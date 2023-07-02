@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-image: url("../img/istockphoto-1215678087-2048x2048.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.modalCloseBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-content {
+    margin: 0 auto;
+    align-content: center;
+}
+
+.forms-inputs {
+    margin: 0 auto;
+    width: 80%;
+}
+
+#submit-button {
+    position: absolute;
+    left: 45%;
+    bottom: 1.25rem;
+    background-color: #4caf50;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+
+.form-box__close__btn {
+    position: absolute;
+    top: .125rem;
+    right: .125rem;
+}
+
+.form-data {
+    margin-top: 2.8125rem;
+}
+
+#password {
+    margin-bottom: 5rem;
+}
