@@ -12,13 +12,13 @@ const cleanDist = () => {
   return gulp.src("./dist").pipe(clean());
 };
 
-const generateMinJs = () => {
-  return gulp
-    .src("./src/js/*.js")
-    .pipe(concat("all.js"))
-    .pipe(jsminify())
-    .pipe(gulp.dest("./dist/js"));
-};
+// const generateMinJs = () => {
+//   return gulp
+//     .src("./src/js/*.js")
+//     .pipe(concat("all.js"))
+//     .pipe(jsminify())
+//     .pipe(gulp.dest("./dist/js"));
+// };
 
 const generateImage = () => {
   return gulp.src("./src/img/**").pipe(gulp.dest("./dist/images"));
@@ -59,9 +59,15 @@ const prefixer = () => {
     .pipe(gulp.dest("dist"));
 };
 
+const buildJS = (done) => {
+  gulp.src(["./src/js/*.js"]).pipe(gulp.dest("./dist/js"));
+  done(); // Сигналізуємо про завершення задачі
+};
+
 gulp.task("cleanDist", cleanDist);
 gulp.task("generateMinCss", generateMinCss);
-gulp.task("generateMinJs", generateMinJs);
+gulp.task("buildJS", buildJS);
+
 gulp.task("generateImage", generateImage);
 gulp.task("style", style);
 gulp.task("cleanCss", cleanCss);
@@ -70,7 +76,7 @@ gulp.task(
   gulp.series(
     cleanDist,
     cleanCss,
-    gulp.parallel(style, generateMinCss, generateMinJs, generateImage)
+    gulp.parallel(style, generateMinCss, buildJS, generateImage)
   )
 );
 
@@ -80,14 +86,14 @@ const build = () => {
   return gulp.series(
     cleanDist,
     cleanCss,
-    gulp.parallel(style, generateMinCss, generateMinJs, generateImage)
+    gulp.parallel(style, generateMinCss, buildJS, generateImage)
   );
 };
 
 function watch() {
   gulp.watch("src/scss/*.scss", style);
   gulp.watch("./src/css/*.css", generateMinCss);
-  gulp.watch("src/js/*.js", generateMinJs);
+  gulp.watch("src/js/*.js", buildJS);
 }
 
 exports.default = build;
