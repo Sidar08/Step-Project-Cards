@@ -298,3 +298,42 @@ main {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.visit-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.visit-card {
+  position: relative;
+  border: green, solid, 1px;
+  border-radius: 5px;
+  background: #fff;
+  -webkit-box-shadow: #4caf50 5px 5px 5px;
+  box-shadow: #4caf50 5px 5px 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.visit-hidden {
+  display: none;
+}
+
+.delete-icon {
+  position: absolute;
+  width: 25px;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.visit-heading {
+  margin-right: 30px;
+}

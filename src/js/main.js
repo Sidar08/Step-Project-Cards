@@ -75,3 +75,81 @@ submitButton.addEventListener("click", function (event) {
     visitButton.style.display = "block";
   }
 });
+
+//viktor codе
+async function getVisits() {
+  visitsList = await (
+    await fetch("https://ajax.test-danit.com/api/v2/cards", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`, //Після створення робочого коду для входу, впиши токен
+      },
+    })
+  ).json();
+  renderCards();
+  console.log(visitsList);
+}
+let visitsList;
+function removeCard (event){
+  fetch(`https://ajax.test-danit.com/api/v2/cards/${event.target.dataset.card}`, {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5` //Після створення робочого коду для входу, впиши токен
+  },
+})
+.then(()=>{
+  document.querySelector(`#card${event.target.dataset.card}`).remove();
+  const idToRemove = Number(event.target.dataset.card);
+  visitsList = visitsList.filter((visit) => {
+    return visit.id !== idToRemove;
+  });
+})
+}
+
+function renderCards() {
+  document.querySelector("#visitList").innerText = "";
+  visitsList.forEach((element) => {
+    const card = document.createElement("article");
+    card.innerHTML = `
+      <h2 class="visit-heading">${element.fullname}</h2>
+      <img src="./dist/images/close-icon.png" class="delete-icon" id="deleteIcon${element.id}" data-card="${element.id}" alt="">
+      <p>Лікар: ${element.doctor}</p>
+      <p class="visit-hidden">Причина: ${element.purpose}</p>
+      <p class="visit-hidden">Терміновість: ${element.urgency}</p>`
+    if ((element.doctor == "Терапевт")) {
+      card.innerHTML += `
+      <p class="visit-hidden">Вік: ${element.age}</p>
+      `;
+    } else if ((element.doctor == "Стоматолог")) {
+      card.innerHTML += `
+      <p class="visit-hidden">Дата останнього візиту: ${element.lastVisitDate}</p>
+      `;
+    } else {
+      card.innerHTML += `
+      <p class="visit-hidden">Кров'яний тиск: ${element.bloodPreasure}</p>
+      <p class="visit-hidden">Індекс маси тіла: ${element.bwi}</p>
+      <p class="visit-hidden">Серцево-судинні захворювання: ${element.heartDiseases}</p>
+      <p class="visit-hidden">Вік: ${element.age}</p>
+      `;
+    }
+    card.innerHTML += `<button id="displayButton${element.id}" data-card="${element.id}">Show More</button>`
+    document.querySelector("#visitList").append(card);
+    document
+      .querySelector(`#displayButton${element.id}`)
+      .addEventListener("click", showFullInfo);
+      document
+      .querySelector(`#deleteIcon${element.id}`)
+      .addEventListener("click", removeCard);
+    card.setAttribute("id", `card${element.id}`);
+    card.classList.add("visit-card");
+  });
+}
+function showFullInfo (event) {
+  const hiddenElements = document.querySelector(`#card${event.target.dataset.card}`).querySelectorAll(".visit-hidden");
+  hiddenElements.forEach((element) => {
+    element.classList.toggle("visit-hidden");
+    event.target.classList.add("visit-hidden");
+  })
+}
+getVisits();
