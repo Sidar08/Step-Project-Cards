@@ -47,6 +47,7 @@ function validateForm() {
   });
 
   if (isAuthenticated) {
+    getVisits();
     localStorage.setItem("login", loginValue);
     localStorage.setItem("password", passwordValue);
     localStorage.setItem("autoLogIn", true);
@@ -258,4 +259,3 @@ function saveEditedVisit(event) {
   .then(() => renderCards());
   
 }
-getVisits();

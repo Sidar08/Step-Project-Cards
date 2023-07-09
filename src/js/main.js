@@ -1,12 +1,12 @@
-import { passObj } from "./utils.js"
+import { passObj } from "./utils.js";
 
-const loginButton = document.querySelector('#loginButton');
+const loginButton = document.querySelector("#loginButton");
 const incorrect = document.querySelector(".incorrect");
 
 function showLoginForm() {
-      const formBox = document.querySelector(".form-box");
-      formBox.style.display = "block";
-    }
+  const formBox = document.querySelector(".form-box");
+  formBox.style.display = "block";
+}
 
 loginButton.addEventListener("click", showLoginForm);
 
@@ -16,8 +16,8 @@ function hideLoginForm() {
   const loginInput = document.getElementById("login");
   const passwordInput = document.getElementById("password");
 
-  loginInput.value = ""; 
-  passwordInput.value = ""; 
+  loginInput.value = "";
+  passwordInput.value = "";
   incorrect.style.display = "none";
 }
 
@@ -37,7 +37,6 @@ function validateForm() {
   }
 
   let isAuthenticated = false;
-  
 
   passObj.forEach(function checkCredentials(e) {
     if (e.login === loginValue && e.password === passwordValue) {
@@ -47,6 +46,7 @@ function validateForm() {
   });
 
   if (isAuthenticated) {
+    getVisits();
     localStorage.setItem("login", loginValue);
     localStorage.setItem("password", passwordValue);
     localStorage.setItem("autoLogIn", true);
@@ -54,7 +54,7 @@ function validateForm() {
   } else {
     const errElem = document.querySelector(".modal");
     errElem.style.position = "fixed";
-    
+
     incorrect.style.display = "block";
     return false;
   }
@@ -66,17 +66,15 @@ const visitButton = document.querySelector(`.visitButton`);
 
 const submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", function (event) {
-  event.preventDefault(); 
+  event.preventDefault();
 
   if (validateForm()) {
-  
     hideLoginForm();
     loginButton.style.display = "none";
     visitButton.style.display = "block";
   }
 });
 
-//viktor codе
 async function getVisits() {
   visitsList = await (
     await fetch("https://ajax.test-danit.com/api/v2/cards", {
@@ -91,20 +89,22 @@ async function getVisits() {
   console.log(visitsList);
 }
 let visitsList;
-function removeCard (event){
-  fetch(`https://ajax.test-danit.com/api/v2/cards/${event.target.dataset.card}`, {
-  method: 'DELETE',
-  headers: {
-    Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5` //Після створення робочого коду для входу, впиши токен
-  },
-})
-.then(()=>{
-  document.querySelector(`#card${event.target.dataset.card}`).remove();
-  const idToRemove = Number(event.target.dataset.card);
-  visitsList = visitsList.filter((visit) => {
-    return visit.id !== idToRemove;
+function removeCard(event) {
+  fetch(
+    `https://ajax.test-danit.com/api/v2/cards/${event.target.dataset.card}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`, //Після створення робочого коду для входу, впиши токен
+      },
+    }
+  ).then(() => {
+    document.querySelector(`#card${event.target.dataset.card}`).remove();
+    const idToRemove = Number(event.target.dataset.card);
+    visitsList = visitsList.filter((visit) => {
+      return visit.id !== idToRemove;
+    });
   });
-})
 }
 
 function renderCards() {
@@ -116,12 +116,12 @@ function renderCards() {
       <img src="./dist/images/close-icon.png" class="delete-icon" id="deleteIcon${element.id}" data-card="${element.id}" alt="">
       <p>Лікар: ${element.doctor}</p>
       <p class="visit-hidden">Причина: ${element.purpose}</p>
-      <p class="visit-hidden">Терміновість: ${element.urgency}</p>`
-    if ((element.doctor == "Терапевт")) {
+      <p class="visit-hidden">Терміновість: ${element.urgency}</p>`;
+    if (element.doctor == "Терапевт") {
       card.innerHTML += `
       <p class="visit-hidden">Вік: ${element.age}</p>
       `;
-    } else if ((element.doctor == "Стоматолог")) {
+    } else if (element.doctor == "Стоматолог") {
       card.innerHTML += `
       <p class="visit-hidden">Дата останнього візиту: ${element.lastVisitDate}</p>
       `;
@@ -135,12 +135,12 @@ function renderCards() {
     }
     card.innerHTML += `<button id="displayButton${element.id}" data-card="${element.id}">Show More</button>
     <button id="editButton${element.id}" data-card="${element.id}">Редагувати</button>
-    `
+    `;
     document.querySelector("#visitList").append(card);
     document
       .querySelector(`#displayButton${element.id}`)
       .addEventListener("click", showFullInfo);
-      document
+    document
       .querySelector(`#deleteIcon${element.id}`)
       .addEventListener("click", removeCard);
     card.setAttribute("id", `card${element.id}`);
@@ -150,17 +150,19 @@ function renderCards() {
     card.classList.add("visit-card");
   });
 }
-function showFullInfo (event) {
-  const hiddenElements = document.querySelector(`#card${event.target.dataset.card}`).querySelectorAll(".visit-hidden");
+function showFullInfo(event) {
+  const hiddenElements = document
+    .querySelector(`#card${event.target.dataset.card}`)
+    .querySelectorAll(".visit-hidden");
   hiddenElements.forEach((element) => {
     element.classList.toggle("visit-hidden");
     event.target.classList.add("visit-hidden");
-  })
+  });
 }
 function editVisit(event) {
   const cardId = event.target.dataset.card;
   const card = document.querySelector(`#card${cardId}`);
-  const visit = visitsList.find(visit => {
+  const visit = visitsList.find((visit) => {
     return visit.id == cardId;
   });
   console.log(card);
@@ -193,15 +195,15 @@ function editVisit(event) {
   document.getElementById(`urgency${cardId}`).value = visit.urgency;
   const doctor = document.querySelector(`#doctor${cardId}`);
   const extraFields = document.querySelector(`#extraFields${cardId}`);
-  function showExtraFields () {
+  function showExtraFields() {
     const selectedDoctor = doctor.value;
     extraFields.innerHTML = "";
-    if (selectedDoctor == "Терапевт"){
+    if (selectedDoctor == "Терапевт") {
       extraFields.innerHTML = `
       <label for="age${cardId}">Вік:</label><br>
       <input id="age${cardId}" value="${visit.age}"></input>
       `;
-    } else if (selectedDoctor == "Стоматолог"){
+    } else if (selectedDoctor == "Стоматолог") {
       extraFields.innerHTML = `
       <label for="lastVisitDate${cardId}">Дата останнього візиту:</label><br>
       <input id="lastVIsitDate${cardId}" value="${visit.lastVisitDate}"></input>
@@ -221,15 +223,17 @@ function editVisit(event) {
   }
   showExtraFields();
   doctor.addEventListener("change", showExtraFields);
-  document.querySelector(`#cancelButton${cardId}`).addEventListener("click", renderCards);
-  document.querySelector(`#saveButton${cardId}`).addEventListener("click", saveEditedVisit);
+  document
+    .querySelector(`#cancelButton${cardId}`)
+    .addEventListener("click", renderCards);
+  document
+    .querySelector(`#saveButton${cardId}`)
+    .addEventListener("click", saveEditedVisit);
 }
-
-
 
 function saveEditedVisit(event) {
   const cardId = event.target.dataset.card;
-  const visit = visitsList.find(visit => {
+  const visit = visitsList.find((visit) => {
     return visit.id == cardId;
   });
   visit.fullname = document.querySelector(`#name${cardId}`).value;
@@ -237,25 +241,28 @@ function saveEditedVisit(event) {
   visit.purpose = document.querySelector(`#purpose${cardId}`).value;
   visit.descriptition = document.querySelector(`#description${cardId}`).value;
   visit.urgency = document.querySelector(`#urgency${cardId}`).value;
-  if(visit.doctor == "Терапевт"){
+  if (visit.doctor == "Терапевт") {
     visit.age = document.querySelector(`#age${cardId}`).value;
-  } else if(visit.doctor == "Стоматолог") {
-    visit.lastVisitDate = document.querySelector(`#lastVisitDate${cardId}`).value;
+  } else if (visit.doctor == "Стоматолог") {
+    visit.lastVisitDate = document.querySelector(
+      `#lastVisitDate${cardId}`
+    ).value;
   } else {
-    visit.bloodPressure = document.querySelector(`#bloodPressure${cardId}`).value;
+    visit.bloodPressure = document.querySelector(
+      `#bloodPressure${cardId}`
+    ).value;
     visit.bmi = document.querySelector(`#bmi${cardId}`).value;
-    visit.heartDiseases = document.querySelector(`#heartDiseases${cardId}`).value;
+    visit.heartDiseases = document.querySelector(
+      `#heartDiseases${cardId}`
+    ).value;
     visit.age = document.querySelector(`#age${cardId}`).value;
   }
   fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
-  method: 'PUT',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`
-  },
-  body: JSON.stringify(visit)
-})
-  .then(() => renderCards());
-  
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`,
+    },
+    body: JSON.stringify(visit),
+  }).then(() => renderCards());
 }
-getVisits();
