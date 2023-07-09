@@ -106,7 +106,6 @@ function removeCard(event) {
     });
   });
 }
-
 function renderCards() {
   document.querySelector("#visitList").innerText = "";
   visitsList.forEach((element) => {
@@ -230,7 +229,6 @@ function editVisit(event) {
     .querySelector(`#saveButton${cardId}`)
     .addEventListener("click", saveEditedVisit);
 }
-
 function saveEditedVisit(event) {
   const cardId = event.target.dataset.card;
   const visit = visitsList.find((visit) => {
