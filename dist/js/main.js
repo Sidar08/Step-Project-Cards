@@ -1,6 +1,7 @@
-import { passObj } from "./utils.js"
-import { initialize } from "./Create_visit.js"
-import { filterVisits } from "./filter.js"
+import { passObj } from "./utils.js";
+import { initialize } from "./Create_visit.js";
+import { filterVisits } from "./filter.js";
+import { getVisits, removeCard, renderCards, showFullInfo, saveEditedVisit} from "./Card_visit.js"
 
 
 const loginButton = document.querySelector("#loginButton");
