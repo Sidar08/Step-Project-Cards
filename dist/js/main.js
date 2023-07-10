@@ -1,6 +1,6 @@
-import { passObj } from "./utils.js"
-import { initialize } from "./Create_visit.js"
-import { filterVisits } from "./filter.js"
+import { passObj } from "./utils.js";
+import { initialize } from "./Create_visit.js";
+import { filterVisits } from "./filter.js";
 
 // initialize();
 // filterVisits()
