@@ -69,7 +69,7 @@ export function initialize() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       })
@@ -85,7 +85,7 @@ export function initialize() {
           console.log("Error:", error);
         });
     }
-  }
+  }  
 
   ///---------для стоматолога--------------
   class VisitDentist extends Visit {
@@ -197,23 +197,23 @@ export function initialize() {
     const urgency = document.getElementById("urgency").value;
     const fullName = document.getElementById("fullName").value;
     const selectedDoctor = doctorSelect.value;
-
-    if (!doctor || !purpose || !description || !urgency || !fullName) {
+  
+    if (!selectedDoctor || !purpose || !description || !urgency || !fullName) {
       alert("Пожалуйста, заполните все обязательные поля.");
       return;
     }
-
+  
     if (selectedDoctor === "cardiologist") {
       const bloodPressure = document.getElementById("bloodPressure").value;
       const bmi = document.getElementById("bmi").value;
       const heartDiseases = document.getElementById("heartDiseases").value;
       const age = document.getElementById("age").value;
-
+  
       if (!bloodPressure || !bmi || !heartDiseases || !age) {
         alert("Пожалуйста, заполните все поля.");
         return;
       }
-
+  
       visit = new VisitCardiologist(
         purpose,
         description,
@@ -226,12 +226,12 @@ export function initialize() {
       );
     } else if (selectedDoctor === "dentist") {
       const lastVisitDate = document.getElementById("lastVisitDate").value;
-
+  
       if (!lastVisitDate) {
         alert("Пожалуйста, заполните все поля.");
         return;
       }
-
+  
       visit = new VisitDentist(
         purpose,
         description,
@@ -241,19 +241,22 @@ export function initialize() {
       );
     } else if (selectedDoctor === "therapist") {
       const age = document.getElementById("age").value;
-
+  
       if (!age) {
         alert("Пожалуйста, заполните все поля.");
         return;
       }
-
+  
       visit = new VisitTherapist(purpose, description, urgency, fullName, age);
     }
-
+  
     if (visit) {
       visit.createCard();
+      modal.close();
+      modal.clearForm();
     }
   });
+  
 }
 
 document.addEventListener("DOMContentLoaded", initialize);
