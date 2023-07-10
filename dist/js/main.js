@@ -1,6 +1,9 @@
 import { passObj } from "./utils.js"
-import {initialize} from "./Create_visit.js"
+import { initialize } from "./Create_visit.js"
+import { filterVisits } from "./filter.js"
+
 // initialize();
+// filterVisits()
 
 const loginButton = document.querySelector('#loginButton');
 const incorrect = document.querySelector(".incorrect");
