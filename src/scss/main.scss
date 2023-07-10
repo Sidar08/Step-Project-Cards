@@ -41,6 +41,43 @@ button:hover {
     background-color: #45a049;
 }
 
+main {
+    background-image: url("../../dist/images/Фон.jpg");
+    max-width: 100%;
+    height: 95vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
+.visit-list {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
 
+.visit-card {
+    position: relative;
+    border: green, solid, 1px;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: #4caf50 5px 5px 5px;
+    padding: 10px;
+    margin: 10px;
+}
 
+.visit-hidden {
+    display: none;
+}
+
+.delete-icon {
+    position: absolute;
+    width: 25px;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.visit-heading {
+    margin-right: 30px;
+}
