@@ -11,7 +11,7 @@ export async function getVisits() {
   renderCards();
   console.log(visitsList);
 }
-let visitsList;
+export let visitsList = [];
 export function removeCard(event) {
   fetch(
     `https://ajax.test-danit.com/api/v2/cards/${event.target.dataset.card}`,
@@ -38,7 +38,8 @@ export function renderCards() {
         <img src="./dist/images/close-icon.png" class="delete-icon" id="deleteIcon${element.id}" data-card="${element.id}" alt="">
         <p>Лікар: ${element.doctor}</p>
         <p class="visit-hidden">Причина: ${element.purpose}</p>
-        <p class="visit-hidden">Терміновість: ${element.urgency}</p>`;
+        <p class="visit-hidden">Терміновість: ${element.urgency}</p>
+        <p class="visit-hidden">Опис візиту: ${element.description}</p>`;
     if (element.doctor == "Терапевт") {
       card.innerHTML += `
         <p class="visit-hidden">Вік: ${element.age}</p>
@@ -101,14 +102,14 @@ export function editVisit(event) {
       <label for="purpose${cardId}">Мета:</label><br>
       <input id="purpose${cardId}" value="${visit.purpose}"></input><br>
       <label for="description${cardId}">Опис візиту:</label><br>
-      <input id="description${cardId}" value="${visit.descriptition}"></input><br>
+      <textarea id="description${cardId}">${visit.description}</textarea><br>
   <label for="urgency${cardId}">Терміновість:</label><br>
   <select id="urgency${cardId}" name="Терміновість">
         <option value="ordinary">ordinary</option>
         <option value="priority">priority</option>
         <option value="ugrent">ugrent</option>
       </select><br>
-      <div id="extraFields${cardId}"></div>
+      <div class ="extra-fields" id="extraFields${cardId}"></div>
       <button type="button" id="saveButton${cardId}" data-card="${cardId}">Зберегти</button>
       <button type="button" id="cancelButton${cardId}">Відмінити</button>
       </form>
@@ -121,25 +122,37 @@ export function editVisit(event) {
     const selectedDoctor = doctor.value;
     extraFields.innerHTML = "";
     if (selectedDoctor == "Терапевт") {
+      let age = visit.age;
+      if(age == undefined) {age = ""};
       extraFields.innerHTML = `
         <label for="age${cardId}">Вік:</label><br>
-        <input id="age${cardId}" value="${visit.age}"></input>
+        <input id="age${cardId}" type="number" value="${age}"></input>
         `;
     } else if (selectedDoctor == "Стоматолог") {
+      let lastVisitDate = visit.lastVisitDate;
+      if(lastVisitDate == undefined) {lastVisitDate = ""};
       extraFields.innerHTML = `
         <label for="lastVisitDate${cardId}">Дата останнього візиту:</label><br>
-        <input id="lastVIsitDate${cardId}" value="${visit.lastVisitDate}"></input>
+        <input id="lastVisitDate${cardId}" type="date" value="${lastVisitDate}"></input>
         `;
     } else {
+      let bloodPressure = visit.bloodPressure;
+      if(bloodPressure == undefined) {bloodPressure = ""};
+      let bmi = visit.bmi;
+      if(bmi == undefined) {bmi = ""};
+      let heartDiseases = visit.heartDiseases;
+      if(heartDiseases == undefined) {heartDiseases = ""};
+      let age = visit.age;
+      if(age == undefined) {age = ""};
       extraFields.innerHTML = `
         <label for="bloodPressure${cardId}">Звичайний тиск:</label><br>
-        <input id="bloodPressure${cardId}" value="${visit.bloodPressure}"></input><br>
+        <input id="bloodPressure${cardId}" value="${bloodPressure}"></input><br>
         <label for="bmi${cardId}">Індекс маси тіла:</label><br>
-        <input id="bmi${cardId}" value="${visit.bmi}"></input><br>
+        <input id="bmi${cardId}" value="${bmi}"></input><br>
         <label for="heartDiseases${cardId}">Перенесені захворювання серцево-судинної системи: </label><br>
-        <input id="heartDiseases${cardId}" value="${visit.heartDiseases}"></input><br>
+        <input id="heartDiseases${cardId}" value="${heartDiseases}"></input><br>
         <label for="age${cardId}">Вік:</label><br>
-        <input id="age${cardId}" value="${visit.age}"></input> <br>
+        <input id="age${cardId}" type="number" value="${age}"></input> <br>
         `;
     }
   }
@@ -160,14 +173,13 @@ export function saveEditedVisit(event) {
   visit.fullname = document.querySelector(`#name${cardId}`).value;
   visit.doctor = document.querySelector(`#doctor${cardId}`).value;
   visit.purpose = document.querySelector(`#purpose${cardId}`).value;
-  visit.descriptition = document.querySelector(`#description${cardId}`).value;
+  visit.description = document.querySelector(`#description${cardId}`).value;
   visit.urgency = document.querySelector(`#urgency${cardId}`).value;
   if (visit.doctor == "Терапевт") {
     visit.age = document.querySelector(`#age${cardId}`).value;
   } else if (visit.doctor == "Стоматолог") {
     visit.lastVisitDate = document.querySelector(
-      `#lastVisitDate${cardId}`
-    ).value;
+      `#lastVisitDate${cardId}`).value;
   } else {
     visit.bloodPressure = document.querySelector(
       `#bloodPressure${cardId}`

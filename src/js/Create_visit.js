@@ -1,3 +1,5 @@
+import { renderCards, visitsList } from "./Card_visit.js";
+
 export function initialize() {
   class Modal {
     constructor(modalId, triggerId) {
@@ -75,9 +77,10 @@ export function initialize() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data.id) {
             // this.displayCard(data);
+            visitsList.push(data);
+            renderCards();
             modal.close();
           }
         })
