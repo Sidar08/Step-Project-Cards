@@ -80,7 +80,7 @@ export function initialize() {
           if (data.id) {
             // this.displayCard(data);
             visitsList.push(data);
-            renderCards();
+            renderCards(visitsList);
             modal.close();
           }
         })

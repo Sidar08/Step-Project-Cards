@@ -110,12 +110,9 @@ function applyFilters() {
       isTitleMatch || (isDescriptionMatch && isStatusMatch && isPriorityMatch)
     );
   });
+console.log(filteredVisits); // <---- МАСИВ, який створюється
+renderCards(filteredVisits); // <---- ВИВІД МАСИВУ НА ЕКРАН (не трогай в цій функції нічого, бо зламається)
 
-  document.querySelector("#visitList").innerHTML = "";
-
-  filteredVisits.forEach((visit) => {
-    const card = renderCards(visit);
-    document.querySelector("#visitList").appendChild(card);
-  });
+ 
 }
 
