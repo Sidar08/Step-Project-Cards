@@ -9,7 +9,7 @@ export async function getVisits() {
     })
   ).json();
   renderCards();
-  console.log(visitsList);
+  // console.log(visitsList);
 }
 export let visitsList = [];
 export function removeCard(event) {

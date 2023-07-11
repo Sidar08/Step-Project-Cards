@@ -56,7 +56,7 @@ export function initialize() {
         purpose: this.purpose,
         description: this.description,
         urgency: this.urgency,
-        fullname: this.fullName,
+        fullName: this.fullName,
         comments: this.comments,
       };
       return formData;
@@ -82,6 +82,7 @@ export function initialize() {
             visitsList.push(data);
             renderCards();
             modal.close();
+            displayNoItemsMessage();
           }
         })
         .catch((error) => {
@@ -259,7 +260,6 @@ export function initialize() {
       modal.clearForm();
     }
   });
-  
 }
 
 document.addEventListener("DOMContentLoaded", initialize);
