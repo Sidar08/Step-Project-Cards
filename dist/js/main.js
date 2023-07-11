@@ -83,6 +83,7 @@ import {
   renderCards,
   showFullInfo,
   saveEditedVisit,
+  editVisit,
 } from "./Card_visit.js";
 
 // import "./filter.js";
@@ -114,8 +115,8 @@ function applyFilters() {
   document.querySelector("#visitList").innerHTML = "";
 
   filteredVisits.forEach((visit) => {
-    const card = renderCards(visit);
+    const card = document.createElement("article");
+    card.innerHTML = renderCards(visit);
     document.querySelector("#visitList").appendChild(card);
   });
 }
-
