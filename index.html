@@ -22,12 +22,13 @@
         height="100"
       />
       <button class="loginButton hederBtn" id="loginButton">Вхід</button>
-      
+
       <!-- кнопка для Модальне вікно "Створити візит" -->
-      <button class="visitButton hederBtn" id="createVisitBtn">Створити візит</button>
-      
+      <button class="visitButton hederBtn" id="createVisitBtn">
+        Створити візит
+      </button>
     </header>
-    
+
     <section class="section">
       <div class="section__filters">
         <input
@@ -42,16 +43,18 @@
         </select>
         <select id="prioritySelect">
           <option value="" disabled selected>Терміновість</option>
-          <option value="High">High</option>
-          <option value="Normal">Normal</option>
-          <option value="Low">Low</option>
+          <option value="High">Терміновість: High</option>
+          <option value="Normal">Терміновість:  Normal</option>
+          <option value="Low">Терміновість: Low</option>
         </select>
         <button id="filterButton">Фільтрувати</button>
       </div>
 
-      <div class="visit-list" id="visitList"></div>
+      
     </section>
-    <main></main>
+    <main>
+      <div class="visit-list" id="visitList"></div>
+
       <div
         class="modal fade show form-box"
         tabindex="-1"
@@ -104,7 +107,6 @@
 
       <!-- Модальне вікно "Створити візит" -->
       <section>
-
         <div id="modal" class="modal">
           <div class="modal-content">
             <span class="close">&times;</span>
@@ -124,43 +126,56 @@
               style="display: none"
             ></div>
             <div class="form-field">
-              <input  autocomplete="off" type="text" id="purpose" placeholder="Мета візиту"/>
+              <input
+                autocomplete="off"
+                type="text"
+                id="purpose"
+                placeholder="Мета візиту"
+              />
             </div>
             <div class="form-field">
-  
-              <textarea  autocomplete="off" placeholder="Короткий опис візиту" id="description"></textarea>
+              <textarea
+                autocomplete="off"
+                placeholder="Короткий опис візиту"
+                id="description"
+              ></textarea>
             </div>
             <div class="form-field">
               <label for="urgency">Терміновість :</label>
               <select id="urgency">
-                <option value="ordinary">Звичайна</option>
-                <option value="priority">Пріоритетна</option>
-                <option value="urgent">Невідкладна</option>
+                <option value="Low">Low</option>
+                <option value="Normal">Normal</option>
+                <option value="High">High</option>
               </select>
             </div>
             <div class="form-field">
-              <input  autocomplete="off" placeholder="ПІБ" type="text" id="fullName" />
+              <input
+                autocomplete="off"
+                placeholder="ПІБ"
+                type="text"
+                id="fullName"
+              />
             </div>
             <div class="form-field">
-              <textarea autocomplete="off" placeholder="Додаткових коментарів" id="comments"></textarea>
+              <textarea
+                autocomplete="off"
+                placeholder="Додаткові коментарі"
+                id="comments"
+              ></textarea>
             </div>
             <button id="createBtn" class="submit-btn">Создать</button>
           </div>
         </div>
-        <div id="visitsContainer">
-          <!-- для карточки -->
-        </div>
-  
       </section>
+      <!-- Модальне вікно "Створити візит" -->
+    </main>
 
 
-      <!-- <script type="module" src="./dist/js/all-min.js"></script> -->
-      <script type="module" src="./dist/js/main.js"></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"
-      ></script>
-    
+    <script type="module" src="./dist/js/main.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

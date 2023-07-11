@@ -1,3 +1,5 @@
+import { renderCards, visitsList } from "./Card_visit.js";
+
 export function initialize() {
   class Modal {
     constructor(modalId, triggerId) {
@@ -75,9 +77,10 @@ export function initialize() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data.id) {
             // this.displayCard(data);
+            visitsList.push(data);
+            renderCards();
             modal.close();
           }
         })
@@ -157,10 +160,10 @@ export function initialize() {
     if (selectedDoctor === "cardiologist") {
       additionalFieldsContainer.innerHTML = `
       <div class="form-field">
-        <input placeholder="Звичайний тиск" onfocus="clearInput()" type="text" id="bloodPressure" autocomplete="off">
+        <input placeholder="Звичайний тиск"  type="text" id="bloodPressure" autocomplete="off">
       </div>
       <div class="form-field">
-        <input placeholder="Індекс маси тіла" onfocus="clearInput()" type="text" id="bmi" autocomplete="off">
+        <input placeholder="Індекс маси тіла"  type="text" id="bmi" autocomplete="off">
       </div>
       <div class="form-field">
         <input placeholder="Захворювання серцево-судинної системи" type="text" id="heartDiseases" autocomplete="off">
@@ -198,7 +201,7 @@ export function initialize() {
     const fullName = document.getElementById("fullName").value;
     const selectedDoctor = doctorSelect.value;
 
-    if (!doctor || !purpose || !description || !urgency || !fullName) {
+    if (!selectedDoctor || !purpose || !description || !urgency || !fullName) {
       alert("Пожалуйста, заполните все обязательные поля.");
       return;
     }
@@ -252,6 +255,8 @@ export function initialize() {
 
     if (visit) {
       visit.createCard();
+      modal.close();
+      modal.clearForm();
     }
   });
 }
