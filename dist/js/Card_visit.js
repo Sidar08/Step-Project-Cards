@@ -8,7 +8,7 @@ export async function getVisits() {
       },
     })
   ).json();
-  renderCards();
+  renderCards(visitsList);
 }
 
 export let visitsList = [];
@@ -31,12 +31,12 @@ export function removeCard(event) {
 
     //-------текс на доске появляется---------
     if (visitsList.length === 0) {
-      renderCards(); 
+      renderCards(visitsList); 
     }
   });
 }
 
-export function renderCards() {
+export function renderCards(visitsList) {
 
   //-------текс на доске---------
   const visitList = document.querySelector("#visitList");
@@ -194,12 +194,14 @@ export function editVisit(event) {
   doctor.addEventListener("change", showExtraFields);
   document
     .querySelector(`#cancelButton${cardId}`)
-    .addEventListener("click", renderCards);
+    .addEventListener("click", renderCardsOnClick);
   document
     .querySelector(`#saveButton${cardId}`)
     .addEventListener("click", saveEditedVisit);
 }
-
+function renderCardsOnClick () {
+  return renderCards(visitsList);
+}
 export function saveEditedVisit(event) {
   const cardId = event.target.dataset.card;
   const visit = visitsList.find((visit) => {
@@ -233,5 +235,5 @@ export function saveEditedVisit(event) {
       Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`,
     },
     body: JSON.stringify(visit),
-  }).then(() => renderCards());
+  }).then(() => renderCards(visitsList));
 }
