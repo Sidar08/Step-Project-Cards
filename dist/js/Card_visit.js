@@ -9,9 +9,10 @@ export async function getVisits() {
     })
   ).json();
   renderCards();
-  // console.log(visitsList);
 }
+
 export let visitsList = [];
+
 export function removeCard(event) {
   fetch(
     `https://ajax.test-danit.com/api/v2/cards/${event.target.dataset.card}`,
@@ -27,9 +28,29 @@ export function removeCard(event) {
     visitsList = visitsList.filter((visit) => {
       return visit.id !== idToRemove;
     });
+
+    //-------текс на доске появляется---------
+    if (visitsList.length === 0) {
+      renderCards(); 
+    }
   });
 }
+
 export function renderCards() {
+
+  //-------текс на доске---------
+  const visitList = document.querySelector("#visitList");
+  visitList.innerHTML = ""; 
+
+  if (visitsList.length === 0) {
+    const noItemsText = document.createElement("p");
+    noItemsText.className = "text-board";
+    noItemsText.textContent = "No items have been added";
+    visitList.appendChild(noItemsText);
+    return;
+  }
+  //-------текс на доске---------
+
   document.querySelector("#visitList").innerText = "";
   visitsList.forEach((element) => {
     const card = document.createElement("article");
@@ -73,6 +94,7 @@ export function renderCards() {
     card.classList.add("visit-card");
   });
 }
+
 export function showFullInfo(event) {
   const hiddenElements = document
     .querySelector(`#card${event.target.dataset.card}`)
@@ -82,13 +104,13 @@ export function showFullInfo(event) {
     event.target.classList.add("visit-hidden");
   });
 }
+
 export function editVisit(event) {
   const cardId = event.target.dataset.card;
   const card = document.querySelector(`#card${cardId}`);
   const visit = visitsList.find((visit) => {
     return visit.id == cardId;
   });
-  console.log(card);
   card.innerHTML = `
       <form>
       <label for="doctor${cardId}">Лікар:</label><br>
@@ -105,9 +127,9 @@ export function editVisit(event) {
       <textarea id="description${cardId}">${visit.description}</textarea><br>
   <label for="urgency${cardId}">Терміновість:</label><br>
   <select id="urgency${cardId}" name="Терміновість">
-        <option value="ordinary">ordinary</option>
-        <option value="priority">priority</option>
-        <option value="ugrent">ugrent</option>
+        <option value="Low">Low</option>
+        <option value="Normal">Normal</option>
+        <option value="High">High</option>
       </select><br>
       <div class ="extra-fields" id="extraFields${cardId}"></div>
       <button type="button" id="saveButton${cardId}" data-card="${cardId}">Зберегти</button>
@@ -165,6 +187,7 @@ export function editVisit(event) {
     .querySelector(`#saveButton${cardId}`)
     .addEventListener("click", saveEditedVisit);
 }
+
 export function saveEditedVisit(event) {
   const cardId = event.target.dataset.card;
   const visit = visitsList.find((visit) => {
