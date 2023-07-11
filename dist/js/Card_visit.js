@@ -34,11 +34,11 @@ export function renderCards() {
   visitsList.forEach((element) => {
     const card = document.createElement("article");
     card.innerHTML = `
-        <h2 class="visit-heading">${element.fullname}</h2>
+        <h2 class="visit-heading" id="visitTitle">${element.fullname}</h2>
         <img src="./dist/images/close-icon.png" class="delete-icon" id="deleteIcon${element.id}" data-card="${element.id}" alt="">
         <p>Лікар: ${element.doctor}</p>
         <p class="visit-hidden">Причина: ${element.purpose}</p>
-        <p class="visit-hidden">Терміновість: ${element.urgency}</p>
+        <p class="visit-hidden" class="visit-priority">Терміновість: ${element.urgency}</p>
         <p class="visit-hidden">Опис візиту: ${element.description}</p>`;
     if (element.doctor == "Терапевт") {
       card.innerHTML += `
@@ -105,9 +105,9 @@ export function editVisit(event) {
       <textarea id="description${cardId}">${visit.description}</textarea><br>
   <label for="urgency${cardId}">Терміновість:</label><br>
   <select id="urgency${cardId}" name="Терміновість">
-        <option value="ordinary">ordinary</option>
-        <option value="priority">priority</option>
-        <option value="ugrent">ugrent</option>
+        <option value="High">High</option>
+        <option value="Normal">Normal</option>
+        <option value="Low">Low</option>
       </select><br>
       <div class ="extra-fields" id="extraFields${cardId}"></div>
       <button type="button" id="saveButton${cardId}" data-card="${cardId}">Зберегти</button>

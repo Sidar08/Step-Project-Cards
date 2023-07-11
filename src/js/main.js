@@ -1,8 +1,4 @@
 import { passObj } from "./utils.js";
-import { initialize } from "./Create_visit.js";
-import { filterVisits } from "./filter.js";
-import { getVisits, removeCard, renderCards, showFullInfo, saveEditedVisit} from "./Card_visit.js"
-
 
 const loginButton = document.querySelector("#loginButton");
 const incorrect = document.querySelector(".incorrect");
@@ -78,3 +74,48 @@ submitButton.addEventListener("click", function (event) {
     visitButton.style.display = "block";
   }
 });
+
+import { initialize } from "./Create_visit.js";
+import {
+  visitsList,
+  getVisits,
+  removeCard,
+  renderCards,
+  showFullInfo,
+  saveEditedVisit,
+} from "./Card_visit.js";
+
+// import "./filter.js";
+
+document.getElementById("filterButton").addEventListener("click", applyFilters);
+
+function applyFilters() {
+  const searchValue = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
+  const statusValue = document.getElementById("statusSelect").value;
+  const priorityValue = document.getElementById("prioritySelect").value;
+
+  const filteredVisits = visitsList.filter((visit) => {
+    const isTitleMatch = visit.fullname.toLowerCase().includes(searchValue);
+    const isDescriptionMatch = visit.description
+      .toLowerCase()
+      .includes(searchValue);
+
+    const isStatusMatch = statusValue === "" || visit.status === statusValue;
+    const isPriorityMatch =
+      priorityValue === "" || visit.priority === priorityValue;
+
+    return (
+      isTitleMatch || (isDescriptionMatch && isStatusMatch && isPriorityMatch)
+    );
+  });
+
+  document.querySelector("#visitList").innerHTML = "";
+
+  filteredVisits.forEach((visit) => {
+    const card = renderCards(visit);
+    document.querySelector("#visitList").appendChild(card);
+  });
+}
+
