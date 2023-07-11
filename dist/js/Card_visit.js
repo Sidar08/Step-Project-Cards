@@ -4,21 +4,22 @@ export async function getVisits() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`, //Після створення робочого коду для входу, впиши токен
+        Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`, //Після створення робочого коду для входу, впиши токен
       },
     })
   ).json();
   renderCards();
-  console.log(visitsList);
 }
+
 export let visitsList = [];
+
 export function removeCard(event) {
   fetch(
     `https://ajax.test-danit.com/api/v2/cards/${event.target.dataset.card}`,
     {
       method: "DELETE",
       headers: {
-        'Authorization': `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`, //Після створення робочого коду для входу, впиши токен
+        Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`, //Після створення робочого коду для входу, впиши токен
       },
     }
   ).then(() => {
@@ -27,18 +28,38 @@ export function removeCard(event) {
     visitsList = visitsList.filter((visit) => {
       return visit.id !== idToRemove;
     });
+
+    //-------текс на доске появляется---------
+    if (visitsList.length === 0) {
+      renderCards(); 
+    }
   });
 }
+
 export function renderCards() {
+
+  //-------текс на доске---------
+  const visitList = document.querySelector("#visitList");
+  visitList.innerHTML = ""; 
+
+  if (visitsList.length === 0) {
+    const noItemsText = document.createElement("p");
+    noItemsText.className = "text-board";
+    noItemsText.textContent = "No items have been added";
+    visitList.appendChild(noItemsText);
+    return;
+  }
+  //-------текс на доске---------
+
   document.querySelector("#visitList").innerText = "";
   visitsList.forEach((element) => {
     const card = document.createElement("article");
     card.innerHTML = `
-        <h2 class="visit-heading" id="visitTitle">${element.fullname}</h2>
+        <h2 class="visit-heading">${element.fullname}</h2>
         <img src="./dist/images/close-icon.png" class="delete-icon" id="deleteIcon${element.id}" data-card="${element.id}" alt="">
         <p>Лікар: ${element.doctor}</p>
         <p class="visit-hidden">Причина: ${element.purpose}</p>
-        <p class="visit-hidden" class="visit-priority">Терміновість: ${element.urgency}</p>
+        <p class="visit-hidden">Терміновість: ${element.urgency}</p>
         <p class="visit-hidden">Опис візиту: ${element.description}</p>`;
     if (element.doctor == "Терапевт") {
       card.innerHTML += `
@@ -73,6 +94,7 @@ export function renderCards() {
     card.classList.add("visit-card");
   });
 }
+
 export function showFullInfo(event) {
   const hiddenElements = document
     .querySelector(`#card${event.target.dataset.card}`)
@@ -82,13 +104,13 @@ export function showFullInfo(event) {
     event.target.classList.add("visit-hidden");
   });
 }
+
 export function editVisit(event) {
   const cardId = event.target.dataset.card;
   const card = document.querySelector(`#card${cardId}`);
   const visit = visitsList.find((visit) => {
     return visit.id == cardId;
   });
-  console.log(card);
   card.innerHTML = `
       <form>
       <label for="doctor${cardId}">Лікар:</label><br>
@@ -105,9 +127,9 @@ export function editVisit(event) {
       <textarea id="description${cardId}">${visit.description}</textarea><br>
   <label for="urgency${cardId}">Терміновість:</label><br>
   <select id="urgency${cardId}" name="Терміновість">
-        <option value="High">High</option>
-        <option value="Normal">Normal</option>
         <option value="Low">Low</option>
+        <option value="Normal">Normal</option>
+        <option value="High">High</option>
       </select><br>
       <div class ="extra-fields" id="extraFields${cardId}"></div>
       <button type="button" id="saveButton${cardId}" data-card="${cardId}">Зберегти</button>
@@ -123,27 +145,39 @@ export function editVisit(event) {
     extraFields.innerHTML = "";
     if (selectedDoctor == "Терапевт") {
       let age = visit.age;
-      if(age == undefined) {age = ""};
+      if (age == undefined) {
+        age = "";
+      }
       extraFields.innerHTML = `
         <label for="age${cardId}">Вік:</label><br>
         <input id="age${cardId}" type="number" value="${age}"></input>
         `;
     } else if (selectedDoctor == "Стоматолог") {
       let lastVisitDate = visit.lastVisitDate;
-      if(lastVisitDate == undefined) {lastVisitDate = ""};
+      if (lastVisitDate == undefined) {
+        lastVisitDate = "";
+      }
       extraFields.innerHTML = `
         <label for="lastVisitDate${cardId}">Дата останнього візиту:</label><br>
         <input id="lastVisitDate${cardId}" type="date" value="${lastVisitDate}"></input>
         `;
     } else {
       let bloodPressure = visit.bloodPressure;
-      if(bloodPressure == undefined) {bloodPressure = ""};
+      if (bloodPressure == undefined) {
+        bloodPressure = "";
+      }
       let bmi = visit.bmi;
-      if(bmi == undefined) {bmi = ""};
+      if (bmi == undefined) {
+        bmi = "";
+      }
       let heartDiseases = visit.heartDiseases;
-      if(heartDiseases == undefined) {heartDiseases = ""};
+      if (heartDiseases == undefined) {
+        heartDiseases = "";
+      }
       let age = visit.age;
-      if(age == undefined) {age = ""};
+      if (age == undefined) {
+        age = "";
+      }
       extraFields.innerHTML = `
         <label for="bloodPressure${cardId}">Звичайний тиск:</label><br>
         <input id="bloodPressure${cardId}" value="${bloodPressure}"></input><br>
@@ -165,6 +199,7 @@ export function editVisit(event) {
     .querySelector(`#saveButton${cardId}`)
     .addEventListener("click", saveEditedVisit);
 }
+
 export function saveEditedVisit(event) {
   const cardId = event.target.dataset.card;
   const visit = visitsList.find((visit) => {
@@ -179,7 +214,8 @@ export function saveEditedVisit(event) {
     visit.age = document.querySelector(`#age${cardId}`).value;
   } else if (visit.doctor == "Стоматолог") {
     visit.lastVisitDate = document.querySelector(
-      `#lastVisitDate${cardId}`).value;
+      `#lastVisitDate${cardId}`
+    ).value;
   } else {
     visit.bloodPressure = document.querySelector(
       `#bloodPressure${cardId}`
@@ -194,9 +230,8 @@ export function saveEditedVisit(event) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      'Authorization': `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`,
+      Authorization: `Bearer 1cbb9698-a4fe-443a-9077-a3f3556797a5`,
     },
     body: JSON.stringify(visit),
   }).then(() => renderCards());
 }
-

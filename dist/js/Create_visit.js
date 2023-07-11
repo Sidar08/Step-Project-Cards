@@ -160,10 +160,10 @@ export function initialize() {
     if (selectedDoctor === "cardiologist") {
       additionalFieldsContainer.innerHTML = `
       <div class="form-field">
-        <input placeholder="Звичайний тиск" onfocus="clearInput()" type="text" id="bloodPressure" autocomplete="off">
+        <input placeholder="Звичайний тиск"  type="text" id="bloodPressure" autocomplete="off">
       </div>
       <div class="form-field">
-        <input placeholder="Індекс маси тіла" onfocus="clearInput()" type="text" id="bmi" autocomplete="off">
+        <input placeholder="Індекс маси тіла"  type="text" id="bmi" autocomplete="off">
       </div>
       <div class="form-field">
         <input placeholder="Захворювання серцево-судинної системи" type="text" id="heartDiseases" autocomplete="off">
