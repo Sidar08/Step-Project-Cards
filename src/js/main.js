@@ -105,18 +105,14 @@ function applyFilters() {
 
     const isStatusMatch = statusValue === "" || visit.status === statusValue;
     const isPriorityMatch =
-      priorityValue === "" || visit.priority === priorityValue;
+      priorityValue === "" || visit.urgency.trim().includes(priorityValue);
 
     return (
       isTitleMatch || (isDescriptionMatch && isStatusMatch && isPriorityMatch)
     );
   });
+console.log(filteredVisits); // <---- МАСИВ, який створюється
+renderCards(filteredVisits); // <---- ВИВІД МАСИВУ НА ЕКРАН (не трогай в цій функції нічого, бо зламається)
 
-  document.querySelector("#visitList").innerHTML = "";
-
-  filteredVisits.forEach((visit) => {
-    const card = document.createElement("article");
-    card.innerHTML = renderCards(visit);
-    document.querySelector("#visitList").appendChild(card);
-  });
+ 
 }
