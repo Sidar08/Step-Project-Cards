@@ -1,4 +1,5 @@
 import { renderCards, visitsList } from "./Card_visit.js";
+import { applyFilters} from "./filter.js";
 
 export function initialize() {
   class Modal {
@@ -81,6 +82,12 @@ export function initialize() {
             // this.displayCard(data);
             visitsList.push(data);
             renderCards(visitsList);
+
+            const filterButton = document.getElementById("filterButton");
+            filterButton.addEventListener("click", renderCards);
+            prioritySelect.addEventListener("change", applyFilters);
+            applyFilters();
+
             modal.close();
           }
         })
