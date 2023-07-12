@@ -51,44 +51,6 @@ export function renderCards(visitsList) {
   }
   //-------текс на доске---------
 
-  // const searchInput = document.getElementById("searchInput");
-  // const statusSelect = document.getElementById("statusSelect");
-  // const prioritySelect = document.getElementById("prioritySelect");
-  
-  // let filteredList = visitsList;
-  
-  // // Фільтрація за введенням пошуку
-  // if (searchInput.value.trim() !== "") {
-  //   const searchTerm = searchInput.value.trim().toLowerCase();
-  //   filteredList = filteredList.filter((visit) => {
-  //     return (
-  //       visit.fullname.toLowerCase().includes(searchTerm) ||
-  //       visit.purpose.toLowerCase().includes(searchTerm) ||
-  //       visit.description.toLowerCase().includes(searchTerm)
-  //     );
-  //   });
-  // }
-  
-  // // Фільтрація за вибором статусу
-  // if (statusSelect.value !== "") {
-  //   filteredList = filteredList.filter((visit) => {
-  //     return visit.urgency === statusSelect.value;
-  //   });
-  // }
-  
-  // // Фільтрація за вибором пріоритету
-  // if (prioritySelect.value !== "") {
-  //   filteredList = filteredList.filter((visit) => {
-  //     return visit.urgency.includes(prioritySelect.value);
-  //   });
-  // }
-  
-  // // Оновлення відфільтрованого списку
-  // document.querySelector("#visitList").innerHTML = "";
-  // filteredList.forEach((element) => {
-  //   // Відображення відфільтрованих карток
-  // });
-
   document.querySelector("#visitList").innerText = "";
   visitsList.forEach((element) => {
     const card = document.createElement("article");
