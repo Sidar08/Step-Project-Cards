@@ -33,13 +33,7 @@ export function applyFilters() {
         return visit.urgency === statusSelect.value;
       });
     }
-  
-    // Фильтрация по приоритету
-    // if (prioritySelect.value !== "") {
-    //   filteredList = filteredList.filter((visit) => {
-    //     return visit.urgency.includes(prioritySelect.value);
-    //   });
-    // }
+
     if (prioritySelect.value !== "") {
       filteredList = filteredList.filter((visit) => {
         return visit.urgency.includes(prioritySelect.value);
